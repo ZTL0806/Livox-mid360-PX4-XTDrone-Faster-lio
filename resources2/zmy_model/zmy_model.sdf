@@ -1,0 +1,453 @@
+<sdf version='1.6'>
+  <model name='zmy_model'>
+    <link name='base_link'>
+      <pose frame=''>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>0.015702 0 0.25354 0 -0 0</pose>
+        <mass>4.7</mass>
+        <inertia>
+          <ixx>0.394515</ixx>
+          <ixy>0</ixy>
+          <ixz>-0.0108838</ixz>
+          <iyy>0.39712</iyy>
+          <iyz>0</iyz>
+          <izz>0.277831</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_link_inertia_collision_4_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.005</length>
+            <radius>0.47</radius>
+          </cylinder>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='base_link_fixed_joint_lump__link_platform_collision_1'>
+        <pose frame=''>0 0 0.3367 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.15 0.1 0.1</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='base_link_fixed_joint_lump__imu_base_link_collision_2'>
+        <pose frame=''>0.05 0 0.4017 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03 0.03 0.03</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='base_link_fixed_joint_lump__livox_base_collision_3'>
+        <pose frame=''>0 0 0.3967 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>/home/byy/catkin_ws/src/livox_laser_simulation/meshes/mid360_rules.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='base_link_inertia_visual_4_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>/home/byy/catkin_ws/src/livox_laser_simulation/meshes/ZD550_motors_amend.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <visual name='base_link_fixed_joint_lump__link_platform_visual_1'>
+        <pose frame=''>0 0 0.3367 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.15 0.1 0.1</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <visual name='base_link_fixed_joint_lump__imu_base_link_visual_2'>
+        <pose frame=''>0.05 0 0.4017 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03 0.03 0.03</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/Green</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <visual name='base_link_fixed_joint_lump__livox_base_visual_3'>
+        <pose frame=''>0 0 0.3967 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>/home/byy/catkin_ws/src/livox_laser_simulation/meshes/mid360.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <velocity_decay/>
+      <velocity_decay/>
+      <velocity_decay/>
+      <velocity_decay/>
+      <gravity>1</gravity>
+      <sensor name='imu_sensor' type='imu'>
+        <always_on>1</always_on>
+        <update_rate>200</update_rate>
+        <visualize>1</visualize>
+        <topic>/livox/imu</topic>
+        <plugin name='imu_plugin' filename='libgazebo_ros_imu_sensor.so'>
+          <topicName>/livox/imu</topicName>
+          <bodyName>imu_base_link</bodyName>
+          <updateRateHZ>200.0</updateRateHZ>
+          <gaussianNoise>0.00329</gaussianNoise>
+          <xyzOffset>0 0 0</xyzOffset>
+          <rpyOffset>0 0 0</rpyOffset>
+          <frameName>imu_base_link</frameName>
+        </plugin>
+        <pose frame=''>0.05 0 0.4017 0 -0 0</pose>
+      </sensor>
+      <gravity>1</gravity>
+      <velocity_decay/>
+      <sensor name='laser_livox' type='ray'>
+        <visualize>1</visualize>
+        <update_rate>10</update_rate>
+        <plugin name='gazebo_ros_laser_controller' filename='liblivox_laser_simulation.so'>
+          <ray>
+            <scan>
+              <horizontal>
+                <samples>100</samples>
+                <resolution>1</resolution>
+                <min_angle>0</min_angle>
+                <max_angle>6.28318</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>360</samples>
+                <resolution>1</resolution>
+                <min_angle>-0.0561995544444</min_angle>
+                <max_angle>0.981223276667</max_angle>
+              </vertical>
+            </scan>
+            <range>
+              <min>0.1</min>
+              <max>30</max>
+              <resolution>0.02</resolution>
+            </range>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.0</stddev>
+            </noise>
+          </ray>
+          <visualize>1</visualize>
+          <samples>24000</samples>
+          <downsample>1</downsample>
+          <csv_file_name>package://livox_laser_simulation/scan_mode/mid360.csv</csv_file_name>
+          <ros_topic>scan</ros_topic>
+        </plugin>
+        <pose frame=''>-0.012 0 0.4437 0 -0 0</pose>
+      </sensor>
+    </link>
+    <link name='imu_link'>
+      <pose frame=''>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <mass>1.5</mass>
+        <inertia>
+          <ixx>1e-05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1e-05</iyy>
+          <iyz>0</iyz>
+          <izz>1e-05</izz>
+        </inertia>
+      </inertial>
+    </link>
+    <joint name='imu_joint' type='revolute'>
+      <child>imu_link</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>1 0 0</xyz>
+        <limit>
+          <lower>0</lower>
+          <upper>0</upper>
+          <effort>0</effort>
+          <velocity>0</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>0</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='rotor_0'>
+      <pose frame=''>0.2 -0.2 0.34 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <mass>1.5</mass>
+        <inertia>
+          <ixx>9.75e-07</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.000273104</iyy>
+          <iyz>0</iyz>
+          <izz>0.000274004</izz>
+        </inertia>
+      </inertial>
+      <collision name='rotor_0_collision_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.005</length>
+            <radius>0.128</radius>
+          </cylinder>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='rotor_0_visual_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>/home/byy/catkin_ws/src/livox_laser_simulation/meshes/iris_prop_ccw.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>__default__</uri>
+            <name>__default__</name>
+          </script>
+        </material>
+      </visual>
+      <gravity>1</gravity>
+      <velocity_decay/>
+    </link>
+    <joint name='rotor_0_joint' type='revolute'>
+      <child>rotor_0</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+          <effort>0</effort>
+          <velocity>0</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>0</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='rotor_1'>
+      <pose frame=''>-0.2 0.2 0.34 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <mass>1.5</mass>
+        <inertia>
+          <ixx>9.75e-07</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.000273104</iyy>
+          <iyz>0</iyz>
+          <izz>0.000274004</izz>
+        </inertia>
+      </inertial>
+      <collision name='rotor_1_collision_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.005</length>
+            <radius>0.128</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='rotor_1_visual_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>/home/byy/catkin_ws/src/livox_laser_simulation/meshes/iris_prop_ccw.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='rotor_1_joint' type='revolute'>
+      <child>rotor_1</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+          <effort>0</effort>
+          <velocity>0</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>0</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='rotor_2'>
+      <pose frame=''>0.2 0.2 0.34 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <mass>1.5</mass>
+        <inertia>
+          <ixx>9.75e-07</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.000273104</iyy>
+          <iyz>0</iyz>
+          <izz>0.000274004</izz>
+        </inertia>
+      </inertial>
+      <collision name='rotor_2_collision_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.005</length>
+            <radius>0.128</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='rotor_2_visual_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>/home/byy/catkin_ws/src/livox_laser_simulation/meshes/iris_prop_cw.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='rotor_2_joint' type='revolute'>
+      <child>rotor_2</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+          <effort>0</effort>
+          <velocity>0</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>0</use_parent_model_frame>
+      </axis>
+    </joint>
+    <link name='rotor_3'>
+      <pose frame=''>-0.2 -0.2 0.34 0 -0 0</pose>
+      <inertial>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <mass>1.5</mass>
+        <inertia>
+          <ixx>9.75e-07</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.000273104</iyy>
+          <iyz>0</iyz>
+          <izz>0.000274004</izz>
+        </inertia>
+      </inertial>
+      <collision name='rotor_3_collision_collision'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.005</length>
+            <radius>0.128</radius>
+          </cylinder>
+        </geometry>
+      </collision>
+      <visual name='rotor_3_visual_visual'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>/home/byy/catkin_ws/src/livox_laser_simulation/meshes/iris_prop_cw.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+    <joint name='rotor_3_joint' type='revolute'>
+      <child>rotor_3</child>
+      <parent>base_link</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+          <effort>0</effort>
+          <velocity>0</velocity>
+        </limit>
+        <dynamics>
+          <damping>0</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+        <use_parent_model_frame>0</use_parent_model_frame>
+      </axis>
+    </joint>
+  </model>
+</sdf>
