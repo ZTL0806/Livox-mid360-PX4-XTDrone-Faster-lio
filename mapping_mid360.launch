@@ -1,0 +1,31 @@
+<launch>
+<!-- Launch file for Livox MID360 LiDAR -->
+
+	<!-- 默认启用 RVIZ​​ -->
+	<arg name="rviz" default="true" />
+
+	<rosparam command="load" file="$(find faster_lio)/config/mid360.yaml" />
+
+	<!-- 关闭特征提取（如平面特征），直接使用原始点云配准 -->
+	<param name="feature_extract_enable" type="bool" value="0"/>
+	<!-- 点云降采样率（每3个点保留1个），减少计算量 -->
+	<param name="point_filter_num_" type="int" value="3"/>
+	<param name="max_iteration" type="int" value="3" />
+	<!-- 面特征体素滤波尺寸（0.5米），控制点云密度 -->
+	<param name="filter_size_surf" type="double" value="0.5" />
+	<!-- 限制迭代卡尔曼滤波的最大次数，平衡精度与速度 -->
+	<param name="filter_size_map" type="double" value="0.5" />
+	<!-- 局部地图立方体边长（1000米），限制建图范围 -->
+	<param name="cube_side_length" type="double" value="1000" />
+	<!-- 启用实时位姿日志记录，用于后续轨迹分析或回环检测 -->
+	<param name="runtime_pos_log_enable" type="bool" value="1" />
+	<!-- 启动 Faster-LIO 的 ​​在线建图核心节点 -->
+    <node pkg="faster_lio" type="run_mapping_online" name="laserMapping" output="screen" /> 
+
+	<!-- 加载 loam_livox.rviz 配置文件，预设点云着色、轨迹显示、坐标系等参数 -->
+	<group if="$(arg rviz)">
+	<node launch-prefix="nice" pkg="rviz" type="rviz" name="rviz" args="-d $(find faster_lio)/rviz_cfg/loam_livox.rviz" />
+	</group>
+
+</launch>
+

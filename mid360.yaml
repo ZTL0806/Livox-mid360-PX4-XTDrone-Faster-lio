@@ -1,0 +1,59 @@
+common:
+    #激光雷达话题名称
+    lid_topic:  "/scan"
+    #IMU话题名称
+    imu_topic:  "/iris_0/imu_gazebo"
+    #时间同步启用标志,当无法进行外部时间同步时才启用。如果启用，系统会尝试对激光雷达和IMU数据进行时间同步。
+    time_sync_en: false
+    #激光雷达和IMU之间的时间偏移
+    time_offset_lidar_to_imu: 0.0 # Time offset between lidar and IMU calibrated by other algorithms, e.g. LI-Init (can be found in README).
+                                  # This param will take effect no matter what time_sync_en is. So if the time offset is not known exactly, please set as 0.0
+
+preprocess:
+    #激光雷达类型
+    lidar_type: 1                # 1 for Livox serials LiDAR, 2 for Velodyne LiDAR, 3 for ouster LiDAR, 
+    #激光雷达的扫描线数
+    scan_line: 4
+    #盲区距离。激光雷达无法检测到的最近距离
+    blind: 0.5
+
+mapping:
+    #加速度计的协方差
+    acc_cov: 0.1
+    #陀螺仪的协方差
+    gyr_cov: 0.1
+    #加速度计偏置的协方差
+    b_acc_cov: 0.0001
+    #陀螺仪偏置的协方差
+    b_gyr_cov: 0.0001
+    #激光雷达的视场角
+    fov_degree:    360
+    #激光雷达的最大检测范围
+    det_range:     100.0
+    #是否启用IMU和激光雷达之间的外部参数在线估计
+    extrinsic_est_en:  false      # true: enable the online estimation of IMU-LiDAR extrinsic
+    #IMU和激光雷达之间的相对位置偏移
+    extrinsic_T: [ -0.011, -0.02329, 0.04412 ]
+    #IMU和激光雷达之间的相对姿态旋转矩阵
+    extrinsic_R: [ 1, 0, 0,
+                   0, 1, 0,
+                   0, 0, 1]
+
+publish:
+    #是否发布路径信息。如果启用，系统会发布里程计估计的路径
+    path_en:  false
+    #是否发布点云扫描数据
+    scan_publish_en:  true       # false: close all the point cloud output
+    #是否发布密集点云
+    dense_publish_en: true       # false: low down the points number in a global-frame point clouds scan.
+    #是否在IMU机体坐标系中发布点云扫描数据
+    scan_bodyframe_pub_en: true  # true: output the point cloud scans in IMU-body-frame
+
+pcd_save:
+    #是否保存点云数据为PCD文件
+    pcd_save_en: true
+    #每个PCD文件中保存的激光雷达帧数,-1保存所有帧
+    interval: -1                 # how many LiDAR frames saved in each pcd file; 
+                                 # -1 : all frames will be saved in ONE pcd file, may lead to memory crash when having too much frames.
+
+
